@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>인스타그램 클론</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+<div class="container center-contents">
+    <div class="row">
+        <!--회원가입섹션-->
+        <form class="form-signup" method="post">
+            <article class="login__form__container">
+
+                <!--회원가입 폼-->
+                <div class="login__form">
+                    <!--로고-->
+                    <h1><img src="/images/logo.jpg" alt=""></h1>
+                    <!--로고end-->
+
+                    <!--회원가입 인풋-->
+                    <form class="login__input"  action="/auth/signup" method="post">
+                        <input type="text" name="username" placeholder="유저네임" required="required"  maxlength="30"/>
+                        <input type="password" name="password" placeholder="패스워드" required="required" />
+                        <input type="email" name="email" placeholder="이메일" required="required" />
+                        <input type="text" name="name" placeholder="이름" required="required" />
+                        <button>가입</button>
+                    </form>
+                    <!--회원가입 인풋end-->
+                </div>
+                <!--회원가입 폼end-->
+
+                <!--계정이 있으신가요?-->
+                <div class="login__register">
+                    <span>계정이 있으신가요?</span>
+                    <a href="/auth/signin">로그인</a>
+                </div>
+                <!--계정이 있으신가요?end-->
+
+            </article>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.js}"/>
+</body>
+</html>
