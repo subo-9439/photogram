@@ -17,16 +17,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 20,unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String name;
 
     private String website;     //웹 사이트
 
-    private String profile;
-
+    private String info;
+    @Column(nullable = false)
     private String email;
 
     private String phone;

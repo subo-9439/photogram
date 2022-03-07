@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>인스타그램 클론</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+</head>
+<body>
+    <main class="main">
+        <section class="container">
+            <!--전체 리스트 시작-->
+            <article class="story-list" id="storyList">
+
+                <!--스토리 아이템-->
+
+                <!--스토리 아이템 끝-->
+
+            </article>
+        </section>
+    </main>
+    <th:block th:replace="fragments/footer" :: footerFragment"></th:block>
+    <script th:src="@{/js/bootstrap.js}"/>
+</body>
+</html>

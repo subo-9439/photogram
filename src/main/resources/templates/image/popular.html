@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>인스타그램 클론</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+</head>
+<body>
+<!--인기 게시글-->
+<main class="popular">
+    <div class="exploreContainer">
+
+        <!--인기게시글 갤러리(GRID배치)-->
+        <div class="popular-gallery">
+
+            <th:forEach var="image" items="${images}">
+                <div class="p-img-box">
+                    <a href="/user/${image.user.id}"> <img src="/upload/${image.postImageUrl}" />
+                    </a>
+                </div>
+            </th:forEach>
+
+        </div>
+
+    </div>
+</main>
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+<script th:src="@{/js/bootstrap.js}"/>
+</body>
+</html>
