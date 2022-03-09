@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>인스타그램 클론</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+    <!--config-->
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
-<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <section class="profile">
     <!--유저정보 컨테이너-->
     <div class="profileContainer">
@@ -66,7 +66,7 @@
                 </ul>
             </div>
             <div class="state">
-                <h4>${dto.user.bio}</h4>
+                <h4>${dto.user.info}</h4>
                 <h4>${dto.user.website}</h4>
             </div>
         </div>
@@ -107,7 +107,7 @@
 <!--로그아웃, 회원정보변경 모달-->
 <div class="modal-info" onclick="modalInfo()">
     <div class="modal">
-        <button onclick="location.href='/user/${dto.user.id}/update'">회원정보 변경</button>
+        <button onclick="location.href='/user/1/update'">회원정보 변경</button>
         <button onclick="location.href='/logout'">로그아웃</button>
         <button onclick="closePopup('.modal-info')">취소</button>
     </div>
@@ -118,8 +118,8 @@
 <div class="modal-image" onclick="modalImage()">
     <div class="modal">
         <p>프로필 사진 바꾸기</p>
-        <button onclick="profileImageUpload(${dto.user.id}, ${principal.user.id})">사진 업로드</button>
-        <button onclick="closePopup('.modal-image')">취소</button>
+        <button th:onclick="profileImageUpload(${dto.user.id}, ${principal.user.id})">사진 업로드</button>
+        <button th:onclick="closePopup('.modal-image')">취소</button>
     </div>
 </div>
 
@@ -137,8 +137,7 @@
     </div>
 
 </div>
-
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
 
 <script src="/js/profile.js"></script>
-</body>
 </html>

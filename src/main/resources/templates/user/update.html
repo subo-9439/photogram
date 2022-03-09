@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>인스타그램 클론</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+    <!--config-->
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
-<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <!--프로필셋팅 메인-->
 <main class="main">
     <!--프로필셋팅 섹션-->
@@ -20,7 +20,7 @@
                     <img src="/upload/${principal.user.profileImageUrl}" onerror="this.src='/images/person.jpeg'" />
                 </div>
                 <div class="item-username">
-                    <h2>${principal.user.username}</h2>
+                    <h2 sec:authentication = "principal.user.name"/>
                 </div>
             </div>
             <!--프로필셋팅 아이디영역end-->
@@ -30,15 +30,15 @@
                 <div class="content-item-02">
                     <div class="item-title">이름</div>
                     <div class="item-input">
-                        <input type="text" name="name" placeholder="이름"
-                               value="${principal.user.name}"  required="required"/>
+                        <input type="text" th:name="name" placeholder="이름"
+                               th:value="${#authentication.principal.user.name}" required="required"/>
                     </div>
                 </div>
                 <div class="content-item-03">
                     <div class="item-title">유저네임</div>
                     <div class="item-input">
-                        <input type="text" name="username" placeholder="유저네임"
-                               value="${principal.user.username}" readonly="readonly" />
+                        <input type="text" th:name="username" placeholder="유저네임"
+                                th:value="${#authentication.principal.user.username}" readonly="readonly" />
                     </div>
                 </div>
                 <div class="content-item-04">
@@ -51,13 +51,13 @@
                     <div class="item-title">웹사이트</div>
                     <div class="item-input">
                         <input type="text" name="website" placeholder="웹 사이트"
-                               value="${principal.user.website}" />
+                                />
                     </div>
                 </div>
                 <div class="content-item-06">
                     <div class="item-title">소개</div>
                     <div class="item-input">
-                        <textarea name="bio" id="" rows="3">${principal.user.bio}</textarea>
+                        <textarea name="info" id="" rows="3" th:text="${#authentication.principal.user.info}"></textarea>
                     </div>
                 </div>
                 <div class="content-item-07">
@@ -71,20 +71,20 @@
                     <div class="item-title">이메일</div>
                     <div class="item-input">
                         <input type="text" name="email" placeholder="이메일"
-                               value="${principal.user.email}" readonly="readonly" />
+                               th:value="${#authentication.principal.user.email}" readonly="readonly" />
                     </div>
                 </div>
                 <div class="content-item-09">
                     <div class="item-title">전회번호</div>
                     <div class="item-input">
                         <input type="text" name="phone" placeholder="전화번호"
-                               value="${principal.user.phone}" />
+                               th:value="${#authentication.principal.user.phone}" />
                     </div>
                 </div>
                 <div class="content-item-10">
                     <div class="item-title">성별</div>
                     <div class="item-input">
-                        <input type="text" name="gender" value="${principal.user.gender}" />
+                        <input type="text" name="gender" th:value="${#authentication.principal.user.gender}" />
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
                 <div class="content-item-11">
                     <div class="item-title"></div>
                     <div class="item-input">
-                        <button>제출</button>
+                        <button type="button" th:onclick="|update(${#authentication.principal.user.id})|">제출</button>
                     </div>
                 </div>
                 <!--제출버튼end-->
@@ -102,5 +102,6 @@
         </article>
     </section>
 </main>
-</body>
+<script th:src="@{/js/update.js}"></script>
+<th:block th:replace="fragments/footer" :: footerFragment></th:block>
 </html>

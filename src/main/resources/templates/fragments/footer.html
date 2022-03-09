@@ -1,9 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<footer>
+    <div class="container">
     <th:block th:fragment="footerFragment">
-        <div>
-            <a th:href= "@{https://github.com/subo-9439}">
-                <h2>github</h2>
-            </a>
-        </div>
+        <ul>
+            <li>깃허브 링크: <a th:href= "@{https://github.com/subo-9439}"><h2>github</h2></a></li>
+        </ul>
     </th:block>
+    </div>
+</footer>
 </html>

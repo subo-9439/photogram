@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>인스타그램 클론</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+    <!-- config -->
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
 <body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <!--사진 업로드페이지 중앙배치-->
 <main class="uploadContainer">
     <!--사진업로드 박스-->

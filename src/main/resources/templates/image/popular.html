@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>인스타그램 클론</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/signupform.css}">-->
+    <!--config-->
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <body>
 <!--인기 게시글-->
 <main class="popular">
@@ -27,6 +28,5 @@
 </main>
 <th:block th:replace="fragments/footer :: footerFragment"></th:block>
 
-<script th:src="@{/js/bootstrap.js}"/>
 </body>
 </html>

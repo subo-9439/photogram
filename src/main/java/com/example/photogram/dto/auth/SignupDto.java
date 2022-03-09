@@ -3,7 +3,6 @@ package com.example.photogram.dto.auth;
 import com.example.photogram.domain.User;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
