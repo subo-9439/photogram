@@ -26,7 +26,7 @@
             <!--프로필셋팅 아이디영역end-->
 
             <!--프로필 수정-->
-            <form id="profileUpdate"  onsubmit="update(${principal.user.id}, event)" >
+            <form id="profileUpdate"  th:onsubmit="|update(${#authentication.principal.user.id},event)|" >
                 <div class="content-item-02">
                     <div class="item-title">이름</div>
                     <div class="item-input">
@@ -92,7 +92,7 @@
                 <div class="content-item-11">
                     <div class="item-title"></div>
                     <div class="item-input">
-                        <button type="button" th:onclick="|update(${#authentication.principal.user.id})|">제출</button>
+                        <button>제출</button>
                     </div>
                 </div>
                 <!--제출버튼end-->

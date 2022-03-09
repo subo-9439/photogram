@@ -1,11 +1,14 @@
 package com.example.photogram.service;
 
 import com.example.photogram.domain.User;
+import com.example.photogram.handler.ex.CustomValidationApiException;
 import com.example.photogram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @Service
@@ -16,7 +19,10 @@ public class UserService {
     @Transactional
     public User userUpdate(long id, User user){
         //1.영속화
-        User userEntity = userRepository.findById(id).get();
+        User userEntity = userRepository.findById(id).orElseThrow(() -> {
+            return new CustomValidationApiException("찾을수 없는아이디입니다.");
+        });
+
 
         //2.영속화된 오브젝트를 수정 - 더티체킹 (업데이트)
         //패스워드는 인코딩해서 db에 넣어줘야한다.
