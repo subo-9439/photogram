@@ -1,6 +1,7 @@
 package com.example.photogram.handler;
 
 import com.example.photogram.dto.CMRespDto;
+import com.example.photogram.handler.ex.CustomApiException;
 import com.example.photogram.handler.ex.CustomValidationApiException;
 import com.example.photogram.handler.ex.CustomValidationException;
 import com.example.photogram.util.Script;
@@ -29,9 +30,15 @@ public class ControllerExceptionHandler {
 
     }
 
-    //ajax통신
+    //ajax통신 validation
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<CMRespDto<?>> validationApiException(CustomValidationApiException e){
         return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),e.getErrorMap()),HttpStatus.BAD_REQUEST);
+    }
+
+    //구독
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<?> apiException(CustomApiException e){
+        return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),null),HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.photogram.controller;
+package com.example.photogram.controller.api;
 
 import com.example.photogram.config.auth.PrincipalDetails;
 import com.example.photogram.domain.User;
