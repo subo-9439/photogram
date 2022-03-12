@@ -2,6 +2,7 @@ package com.example.photogram.handler;
 
 import com.example.photogram.dto.CMRespDto;
 import com.example.photogram.handler.ex.CustomApiException;
+import com.example.photogram.handler.ex.CustomException;
 import com.example.photogram.handler.ex.CustomValidationApiException;
 import com.example.photogram.handler.ex.CustomValidationException;
 import com.example.photogram.util.Script;
@@ -23,19 +24,24 @@ public class ControllerExceptionHandler {
 //        return new CMRespDto<Map<String,String>>(-1,e.getMessage(),e.getErrorMap());
 //    }
 
+    //jpa 실패할때
+    @ExceptionHandler(CustomException.class)
+    public String exception(CustomException e){
+        return Script.back(e.getMessage());
+    }
+
     //클라이언트-> script반환
     @ExceptionHandler(CustomValidationException.class)
     public String validationException(CustomValidationException e){
-        return Script.back(e.getErrorMap().toString());
+        if(e.getErrorMap() == null) return e.getMessage();
+        else return Script.back(e.getErrorMap().toString());
 
     }
-
     //ajax통신 validation
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<CMRespDto<?>> validationApiException(CustomValidationApiException e){
         return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),e.getErrorMap()),HttpStatus.BAD_REQUEST);
     }
-
     //구독
     @ExceptionHandler(CustomApiException.class)
     public ResponseEntity<?> apiException(CustomApiException e){

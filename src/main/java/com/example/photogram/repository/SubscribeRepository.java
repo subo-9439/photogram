@@ -4,7 +4,6 @@ import com.example.photogram.domain.subscribe.Subscribe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface SubscribeRepository extends JpaRepository<Subscribe,Long> {
 
@@ -15,7 +14,7 @@ public interface SubscribeRepository extends JpaRepository<Subscribe,Long> {
     void doSubScribe(Long fromUserId, Long toUserId);
     //int형엔 성공 (변경된 행의 개수), 실패 -1
 
-    @Query(value = "DELETE FROM subscribe WHERE fromUserId=:fromUserId AND toUserId=toUserId",nativeQuery = true)
+    @Query(value = "DELETE FROM subscribe WHERE fromUserId=:fromUserId AND toUserId=:toUserId",nativeQuery = true)
     @Modifying
     void undoSubScribe(Long fromUserId, Long toUserId);
 }

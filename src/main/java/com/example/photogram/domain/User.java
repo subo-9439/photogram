@@ -1,11 +1,13 @@
 package com.example.photogram.domain;
 
+import com.example.photogram.domain.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -40,8 +42,15 @@ public class User {
 
     private String role;                // 권한
 
-    private LocalDateTime createDate;
+    //1 연관관계에 종속된다. 2 테이블에 컬럼을 만들지않는다.
+    //User를 선택할 때 해당 User id로 등록된 image들을 다가져온다.
+    //Lazy일떈 User를 선택할 때는 해당 user id로 등록된 image들을 가져오지 않는다.
+    // 대신 getImages() 함수가 호출 될 때 가져온다
+    //Eager = User를 선택할 때 해당 User id로 등록된 image들을 전부 Join해서 겨자온다.
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Image> images;
 
+    private LocalDateTime createDate;
     @PrePersist // db에 insert되기 직전에 실행
     public void createdDate() {
         this.createDate = LocalDateTime.now();

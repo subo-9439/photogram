@@ -15,6 +15,14 @@ spring:
       ddl-auto: update
     generate-ddl: true
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 128KB
+      enabled: true
+      location: file
 server:
   port: 8080
 
+file:
+  path: D:/workspace/upload/

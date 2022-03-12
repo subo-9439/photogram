@@ -1,7 +1,9 @@
 package com.example.photogram.service;
 
 import com.example.photogram.domain.User;
+import com.example.photogram.handler.ex.CustomException;
 import com.example.photogram.handler.ex.CustomValidationApiException;
+import com.example.photogram.repository.ImageRepository;
 import com.example.photogram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,8 +16,18 @@ import java.util.function.Supplier;
 @Service
 public class UserService {
 
+
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public User userProfile(Long userId){
+        // SELECT * from image where userId =:userId;
+        User userEntity = userRepository.findById(userId).orElseThrow( ()-> {
+            throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
+        });
+        return userEntity;
+    }
     @Transactional
     public User userUpdate(long id, User user){
         //1.영속화

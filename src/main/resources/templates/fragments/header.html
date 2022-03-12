@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
 <div th:fragment="headerFragment">
     <body>
     <h1>hello</h1>
     <!-- principalId 담아두는 곳 -->
-    <input type="hidden" id="principalId" value="${principal.user.id}" />
+    <input type="hidden" id="principalId" th:value="${#authentication.principal.user.id}" />
 
     <header class="header">
         <div class="container">
@@ -19,7 +20,7 @@
                     <li class="navi-item"><a href="/image/popular">
                         <i class="far fa-compass"></i>
                     </a></li>
-                    <li class="navi-item"><a href="/user/${principal.user.id}">
+                    <li class="navi-item"><a th:href="@{'/user/' + ${#authentication.principal.user.id}}">
                         <i class="far fa-user"></i>
                     </a></li>
                 </ul>

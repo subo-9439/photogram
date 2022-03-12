@@ -6,11 +6,13 @@
     <!--config-->
     <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
+<script>
+    console.log( '[[${user}]] ');
+</script>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <section class="profile">
     <!--유저정보 컨테이너-->
     <div class="profileContainer">
-
         <!--유저이미지-->
         <div class="profile-left">
             <div class="profile-img-wrap story-border"
@@ -21,7 +23,7 @@
                            id="userProfileImageInput" />
                 </form>
 
-                <img class="profile-image" src="/upload/${dto.user.profileImageUrl}"
+                <img class="profile-image" src="/upload/${user.profileImageUrl}"
                      onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
 
             </div>
@@ -31,19 +33,19 @@
         <!--유저정보 및 사진등록 구독하기-->
         <div class="profile-right">
             <div class="name-group">
-                <h2>${dto.user.name}</h2>
+                <h2>[[${user.name}]]</h2>
 
                 <th:choose>
-                    <th:when test="${dto.pageOwnerState}">
+                    <th:when test="${pageOwnerState}">
                         <button class="cta" onclick="location.href='/image/upload'">사진등록</button>
                     </th:when>
                     <th:otherwise>
                         <th:choose>
-                            <th:when test="${dto.subscribeState}">
-                                <button class="cta blue" onclick="toggleSubscribe(${dto.user.id}, this)">구독취소</button>
+                            <th:when test="${subscribeState}">
+                                <button class="cta blue" onclick="toggleSubscribe(${user.id}, this)">구독취소</button>
                             </th:when>
                             <th:otherwise>
-                                <button class="cta" onclick="toggleSubscribe(${dto.user.id}, this)">구독하기</button>
+                                <button class="cta" onclick="toggleSubscribe(${user.id}, this)">구독하기</button>
                             </th:otherwise>
                         </th:choose>
 
@@ -59,15 +61,15 @@
 
             <div class="subscribe">
                 <ul>
-                    <li><a href=""> 게시물<span>${dto.imageCount}</span>
+                    <li><a href=""> 게시물<span>${imageCount}</span>
                     </a></li>
-                    <li><a href="javascript:subscribeInfoModalOpen(${dto.user.id});"> 구독정보<span>${dto.subscribeCount}</span>
+                    <li><a href="javascript:subscribeInfoModalOpen(${user.id});"> 구독정보<span>${subscribeCount}</span>
                     </a></li>
                 </ul>
             </div>
             <div class="state">
-                <h4>${dto.user.info}</h4>
-                <h4>${dto.user.website}</h4>
+                <h4>[[${user.info}]]</h4>
+                <h4>[[${user.website}]]</h4>
             </div>
         </div>
         <!--유저정보 및 사진등록 구독하기-->
@@ -82,24 +84,21 @@
         <!--그냥 감싸는 div (지우면이미지커짐)-->
         <div id="tab-1-content" class="tab-content-item show">
             <!--게시물컨 그리드배열-->
-            <div class="tab-1-content-inner">
 
-                <!--아이템들-->
-
-                <th:forEach var="image" items="${dto.user.images}"> <!-- EL표현식에서 변수명을 적으면 get함수가 자동 호출된다. -->
-                    <div class="img-box">
-                        <a href=""> <img src="/upload/${image.postImageUrl}" />
+            <!--아이템들-->
+            <var th:each = "image : ${user.images}">
+                <div class="img-box">
+                    <a th:href=""> <img th:src="'/upload/'+${image.postImageUrl}" />
+                    </a>
+                    <div class="comment">
+                        <a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
                         </a>
-                        <div class="comment">
-                            <a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
-                            </a>
-                        </div>
                     </div>
-                </th:forEach>
+                </div>
+            <th:each/>
 
 
-                <!--아이템들end-->
-            </div>
+            <!--아이템들end-->
         </div>
     </div>
 </section>
@@ -118,7 +117,7 @@
 <div class="modal-image" onclick="modalImage()">
     <div class="modal">
         <p>프로필 사진 바꾸기</p>
-        <button th:onclick="profileImageUpload(${dto.user.id}, ${principal.user.id})">사진 업로드</button>
+        <button th:onclick="profileImageUpload(${user.id}, ${principal.user.id})">사진 업로드</button>
         <button th:onclick="closePopup('.modal-image')">취소</button>
     </div>
 </div>
