@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "subscribe_uk",
-                        columnNames = {"fromUserId","toUserId"}
+                        columnNames = {"FROM_USER_ID","TO_USER_ID"}
                 )
         }
 )
@@ -28,11 +28,11 @@ public class Subscribe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name="fromUserId")
+    @JoinColumn(name="FROM_USER_ID")
     @ManyToOne
-    private User formUser;
+    private User fromUser;
 
-    @JoinColumn(name="toUserId")
+    @JoinColumn(name="TO_USER_ID")
     @ManyToOne
     private User toUser;
 

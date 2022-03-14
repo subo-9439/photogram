@@ -1,6 +1,7 @@
 package com.example.photogram.domain;
 
 import com.example.photogram.domain.image.Image;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class User {
     private String website;     //웹 사이트
 
     private String info;
+
     @Column(nullable = false)
     private String email;
 
@@ -48,6 +50,7 @@ public class User {
     // 대신 getImages() 함수가 호출 될 때 가져온다
     //Eager = User를 선택할 때 해당 User id로 등록된 image들을 전부 Join해서 겨자온다.
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"user"})//Image클래스 내부의 user를 제외하고 parsing을해준다.
     private List<Image> images;
 
     private LocalDateTime createDate;

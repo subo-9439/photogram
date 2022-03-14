@@ -1,7 +1,7 @@
 package com.example.photogram.controller;
 
 import com.example.photogram.config.auth.PrincipalDetails;
-import com.example.photogram.domain.User;
+import com.example.photogram.dto.user.UserProfileDto;
 import com.example.photogram.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/user/{id}")
-    public String profile(@PathVariable Long id, Model model) {
-        User userEntity = userService.userProfile(id);
-        model.addAttribute("user", userEntity);
+    @GetMapping("/user/{pageUserId}")
+    public String profile(@PathVariable Long pageUserId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        UserProfileDto dto = userService.userProfile(pageUserId, principalDetails.getUser().getId());
+        model.addAttribute("dto", dto);
         return "user/profile";
     }
 
     //Session : SecurityContextHolder -> Context-> Authentication -> principalDetails
     @GetMapping("/user/{id}/update")
-    public String update(@PathVariable int id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String update(@PathVariable int id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         //1.
-        System.out.println("세션정보: " + principalDetails.getUser());
+//        System.out.println("세션정보: " + principalDetails.getUser());
 
         //2. 비추천
         //Authentication auth = SecurityContextHolder.getContext().getAuthentication();

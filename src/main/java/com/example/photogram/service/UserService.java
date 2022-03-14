@@ -1,9 +1,11 @@
 package com.example.photogram.service;
 
 import com.example.photogram.domain.User;
+import com.example.photogram.dto.user.UserProfileDto;
 import com.example.photogram.handler.ex.CustomException;
 import com.example.photogram.handler.ex.CustomValidationApiException;
 import com.example.photogram.repository.ImageRepository;
+import com.example.photogram.repository.SubscribeRepository;
 import com.example.photogram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,20 +18,34 @@ import java.util.function.Supplier;
 @Service
 public class UserService {
 
-
     private final UserRepository userRepository;
-    private final ImageRepository imageRepository;
+    private final SubscribeRepository subscribeRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User userProfile(Long userId){
-        // SELECT * from image where userId =:userId;
-        User userEntity = userRepository.findById(userId).orElseThrow( ()-> {
+    //1.select를 하더라도 변경된내용이 있으면 flush가 일어난다.(더티체킹)
+    //그러나 readOnly = true를 해준다면 변경감지를 하지않고 실행하게해준다
+    //2.고립성
+    @Transactional(readOnly = true)
+    public UserProfileDto userProfile(Long pageUserId,Long principalId){
+        UserProfileDto dto = new UserProfileDto();
+        User userEntity = userRepository.findById(pageUserId).orElseThrow( ()-> {
             throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
         });
-        return userEntity;
+        dto.setUser(userEntity);
+        dto.setPageOwnerState(pageUserId==principalId);
+        dto.setImageCount(userEntity.getImages().size());
+
+        int subscribeState = subscribeRepository.mSubscribeState(principalId,pageUserId); //1, 0
+        int subscribeCount = subscribeRepository.mSubscribeCount(pageUserId);
+
+        dto.setSubscribeState(subscribeState==1);
+        dto.setSubscribeCount(subscribeCount);
+        
+        return dto;
     }
     @Transactional
-    public User userUpdate(long id, User user){
+    public User userUpdate(Long id, User user){
         //1.영속화
         User userEntity = userRepository.findById(id).orElseThrow(() -> {
             return new CustomValidationApiException("찾을수 없는아이디입니다.");

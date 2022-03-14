@@ -1,6 +1,5 @@
 package com.example.photogram.service;
 
-import com.example.photogram.domain.subscribe.Subscribe;
 import com.example.photogram.handler.ex.CustomApiException;
 import com.example.photogram.repository.SubscribeRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class SubscribeService {
     @Transactional
     public void doSubScribe(Long fromUserId, Long toUserId){
         try{
-            subscribeRepository.doSubScribe(fromUserId,toUserId);
+            subscribeRepository.mDoSubScribe(fromUserId,toUserId);
         } catch (Exception e){
             throw new CustomApiException("이미 구독을 하였습니다.");
         }
@@ -24,6 +23,6 @@ public class SubscribeService {
 
     @Transactional
     public void undoSubScribe(Long fromUserId, Long toUserId) {
-        subscribeRepository.undoSubScribe(fromUserId,toUserId);
+        subscribeRepository.mUndoSubScribe(fromUserId,toUserId);
     }
 }
