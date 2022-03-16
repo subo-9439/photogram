@@ -32,8 +32,12 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("mysql:mysql-connector-java")
+
+	implementation group: 'org.qlrm', name: 'qlrm', version: '3.0.1'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+// 맨 아래 부분에 추가
+

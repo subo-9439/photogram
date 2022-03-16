@@ -7,7 +7,9 @@
   src: url(../fonts/billabong.ttf);
 }
 
-
+section {
+        position: relative;
+}
 .profileContainer {
   display: flex;
   justify-content: space-between;

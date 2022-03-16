@@ -10,7 +10,7 @@
   (8) 구독자 정보 모달 닫기
  */
 
-// (1) 유저 프로파일 페이지 구독하기, 구독취소
+// (1) 유저 프로파일 페이지 구독하기, 구독취소 모달
 function toggleSubscribe(toUserId, obj) {
 	if ($(obj).text() === "구독취소") {
 		$.ajax({
@@ -42,6 +42,7 @@ function subscribeInfoModalOpen(pageUserId) {
 	$(".modal-subscribe").css("display", "flex");
 
 	$.ajax({
+		type: "get",
 		url: `/api/user/${pageUserId}/subscribe`,
 		dataType: "json"
 	}).done(res => {
@@ -58,14 +59,14 @@ function subscribeInfoModalOpen(pageUserId) {
 
 function getSubscribeModalItem(u) {
 
-	let item = `<div class="subscribe__item" id="subscribeModalItem-${u.id}">
-	<div class="subscribe__img">
+	let item = `<div class="subscribe-item" id="subscribeModalItem-${u.id}">
+	<div class="subscribe-img">
 		<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'" />
 	</div>
-	<div class="subscribe__text">
+	<div class="subscribe-text">
 		<h2>${u.username}</h2>
 	</div>
-	<div class="subscribe__btn">`;
+	<div class="subscribe-btn">`;
 
 	if(!u.equalUserState){ // 동일 유저가 아닐 때 버튼이 만들이 만들어져야함
 		if(u.subscribeState){ // 구독한 상태
