@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -40,5 +41,11 @@ public class ImageService {
         Image image = imageUploadDto.toEntity(imageFileName, principalDetails.getUser());
         Image imageEntity = imageRepository.save(image);
 
+    }
+
+    @Transactional(readOnly = true)//영속성 컨텍스트 변경 감지를 해서 , 더티 체킹을 함 flush(반영), readOnly = true를 한다면 flush X
+    public List<Image> imageStory(Long principalId) {
+        List<Image> images = imageRepository.mStory(principalId);
+        return images;
     }
 }

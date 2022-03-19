@@ -14,36 +14,36 @@ let principalId = $("#principalId").val();
 let page = 0;
 
 function storyLoad() {
-	$.ajax({
-		url: `/api/image?page=${page}`,
-		dataType: "json"
-	}).done(res => {
-		//console.log(res);
-		res.data.content.forEach((image)=>{
-			let storyItem = getStoryItem(image);
-			$("#storyList").append(storyItem);
-		});
-	}).fail(error => {
-		console.log("오류", error);
-	});
+    $.ajax({
+        url:`/api/image`,
+        dataType:"json"
+    }).done(res => {
+        console.log(res);
+        res.data.forEach((image) =>{
+            let storyItem = getStoryItem();
+            $("#storyList").append(storyItem);
+        });
+    }).fail(error => {
+        console.log("오류",error)
+    })
 }
 
 storyLoad();
 
 function getStoryItem(image) {
-	let item = `<div class="story-list__item">
-	<div class="sl__item__header">
+	let item = `<div class="story-list-item">
+	<div class="sl-item-header">
 		<div>
 			<img class="profile-image" src="/upload/${image.user.profileImageUrl}"
 				onerror="this.src='/images/person.jpeg'" />
 		</div>
-		<div>${image.user.username}</div>
+		<div>[[${image.user.username}]]</div>
 	</div>
-	<div class="sl__item__img">
+	<div class="sl-item-img">
 		<img src="/upload/${image.postImageUrl}" />
 	</div>
-	<div class="sl__item__contents">
-		<div class="sl__item__contents__icon">
+	<div class="sl-item-contents">
+		<div class="sl-item-contents-icon">
 			<button>`;
 
 			     if(image.likeState){
@@ -57,15 +57,15 @@ function getStoryItem(image) {
 			</button>
 		</div>
 		<span class="like"><b id="storyLikeCount-${image.id}">${image.likeCount} </b>likes</span>
-		<div class="sl__item__contents__content">
-			<p>${image.caption}</p>
+		<div class="sl-item-contents-content">
+			<p>[[${image.caption}]]</p>
 		</div>
 		<div id="storyCommentList-${image.id}">`;
 
 			image.comments.forEach((comment)=>{
-				item +=`<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
+				item +=`<div class="sl-item-contents-comment" id="storyCommentItem-${comment.id}">
 				<p>
-					<b>${comment.user.username} :</b> ${comment.content}
+					<b>[[${comment.user.username}]] :</b> [[${comment.content}]]
 				</p>`;
 
 				if(principalId == comment.user.id){
@@ -82,7 +82,7 @@ function getStoryItem(image) {
 
 		item += `
 		</div>
-		<div class="sl__item__input">
+		<div class="sl-item-input">
 			<input type="text" placeholder="댓글 달기..." id="storyCommentInput-${image.id}" />
 			<button type="button" onClick="addComment(${image.id})">게시</button>
 		</div>
@@ -186,7 +186,7 @@ function addComment(imageId) {
 		let comment = res.data;
 
 		let content = `
-		  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
+		  <div class="sl-item-contents-comment" id="storyCommentItem-${comment.id}">
 		    <p>
 		      <b>${comment.user.username} :</b>
 		      ${comment.content}
