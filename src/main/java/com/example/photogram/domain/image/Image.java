@@ -25,7 +25,7 @@ public class Image {
     private String postImageUrl;
 
     @JsonIgnoreProperties({"images"})
-    @JoinColumn(name="userId")
+    @JoinColumn(name="user_id")
     @ManyToOne(fetch = FetchType.EAGER) //이미지를 select하면 조인해서 User정보를 같이 들고옴
     private User user;
 

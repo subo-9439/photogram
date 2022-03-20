@@ -6,6 +6,8 @@ import com.example.photogram.dto.image.ImageUploadDto;
 import com.example.photogram.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +46,12 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)//영속성 컨텍스트 변경 감지를 해서 , 더티 체킹을 함 flush(반영), readOnly = true를 한다면 flush X
-    public List<Image> imageStory(Long principalId) {
-        List<Image> images = imageRepository.mStory(principalId);
+    public Page<Image> imageStory(Long principalId, Pageable pageable) {
+        Page<Image> images = imageRepository.mStory(principalId, pageable);
+        System.out.println("===========");
+        images.forEach(System.out::println);
+        System.out.println(images.isEmpty());
+        System.out.println("--------------");
         return images;
     }
 }

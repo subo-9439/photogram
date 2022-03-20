@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>인스타그램 클론</title>
     <!--config-->
+
     <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
@@ -13,6 +14,7 @@
         <section class="container">
             <!--전체 리스트 시작-->
             <article class="story-list" id="storyList">
+
 
                 <!--스토리 아이템-->
 
@@ -23,5 +25,10 @@
     </main>
 </body>
 <th:block th:replace="fragments/footer" :: footerFragment></th:block>
+<script type="text/javascript" th:inline="javascript">
+        console.log("안녕");
+                var principalId = [[${#authentication.principal.user.id}]];
+
+</script>
 <script src="/js/story.js"></script>
 </html>
