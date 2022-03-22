@@ -25,4 +25,4 @@ server:
   port: 8080
 
 file:
-  path: D:/workspace/upload/
+  path: D:/workspace/upload
