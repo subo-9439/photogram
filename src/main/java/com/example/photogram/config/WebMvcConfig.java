@@ -17,8 +17,10 @@ public class WebMvcConfig implements WebMvcConfigurer {//web설정
         WebMvcConfigurer.super.addResourceHandlers(registry);
 
         //file:///D:/workspace/~
-        registry.addResourceHandler("/**")
-                        .addResourceLocations("classpath:/templates/","classpath:/static/");
+//        registry.addResourceHandler("/**")
+//                        .addResourceLocations("classpath:/templates/","classpath:/static/");
+        System.out.println("upload들어왔니");
+        System.out.println(uploadFolder);
         registry
                 .addResourceHandler("/upload/**")//view에서 /upload/** 로들어오면
                 .addResourceLocations("file:///"+uploadFolder)

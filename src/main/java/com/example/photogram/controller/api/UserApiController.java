@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//구독하기 , 유저정보 업데이트(put방식이기떄문에 비동기로 처리했다.)
 @RequiredArgsConstructor
 @RestController
 public class UserApiController  {

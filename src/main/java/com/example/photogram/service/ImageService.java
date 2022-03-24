@@ -48,10 +48,18 @@ public class ImageService {
     @Transactional(readOnly = true)//영속성 컨텍스트 변경 감지를 해서 , 더티 체킹을 함 flush(반영), readOnly = true를 한다면 flush X
     public Page<Image> imageStory(Long principalId, Pageable pageable) {
         Page<Image> images = imageRepository.mStory(principalId, pageable);
-        System.out.println("===========");
-        images.forEach(System.out::println);
-        System.out.println(images.isEmpty());
-        System.out.println("--------------");
+
+        //images에 좋아요 상태를 담아서 보내기
+        images.forEach((image)->{
+            image.setLikeCount(image.getLikes().size());
+            image.getLikes().forEach((like) -> {
+                //좋아요 상태
+                if(like.getUser().getId() == principalId) {
+                    image.setLikeState(true);
+                }
+            });
+
+        });
         return images;
     }
 }

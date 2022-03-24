@@ -18,11 +18,11 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB
-      max-request-size: 128KB
+      max-request-size: 10MB
       enabled: true
       location: file
 server:
   port: 8080
 
 file:
-  path: D:/workspace/upload
+  path: D:/subo/project/upload/
