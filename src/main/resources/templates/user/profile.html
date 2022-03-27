@@ -19,11 +19,12 @@
                      onclick="popup('.modal-image')">
 
                     <form id="userProfileImageForm">
+                        <!--UserApiController에 있는  profileImageFile변수와 name의 변수 명을 같게 해줘야한다.                      -->
                         <input type="file" name="profileImageFile" style="display: none;"
                                id="userProfileImageInput" />
                     </form>
 
-                    <img class="profile-image" src="/upload/${dto.user.profileImageUrl}"
+                    <img class="profile-image" th:src="@{/upload/}"+${dto.user.profileImageUrl}
                          onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
 
                 </div>
@@ -86,7 +87,7 @@
 
                     <!--아이템들-->
 
-                    <th:block th:each="image: ${dto.user.images}"> <!-- EL표현식에서 변수명을 적으면 get함수가 자동 호출된다. -->
+                    <th:block th:each = "image: ${dto.user.images}"> <!-- EL표현식에서 변수명을 적으면 get함수가 자동 호출된다. -->
                         <div class="img-box">
                             <a href=""> <img th:src="@{'/upload/'+ ${image.postImageUrl}}" />
                             </a>
@@ -115,7 +116,7 @@
         <div class="modal-image" onclick="modalImage()">
             <div class="modal">
                 <p>프로필 사진 바꾸기</p>
-                <button th:onclick="profileImageUpload(${dto.user.id}, ${#authentication.principal.dto.user.id})">사진 업로드</button>
+                <button th:onclick="|profileImageUpload(${dto.user.id}, ${#authentication.principal.user.id})|">사진 업로드</button>
                 <button th:onclick="closePopup('.modal-image')">취소</button>
             </div>
         </div>

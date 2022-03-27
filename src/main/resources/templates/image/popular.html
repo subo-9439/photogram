@@ -15,12 +15,13 @@
         <!--인기게시글 갤러리(GRID배치)-->
         <div class="popular-gallery">
 
-            <th:forEach var="image" items="${images}">
+            <th:block th:each= "image : ${images}">
                 <div class="p-img-box">
-                    <a href="/user/${image.user.id}"> <img src="/upload/${image.postImageUrl}" />
+                    <a th:href="@{/user/}+${image.user.id}">
+                        <img th:src="@{/upload/}+${image.postImageUrl}" />
                     </a>
                 </div>
-            </th:forEach>
+            </th:block>
 
         </div>
 

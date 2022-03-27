@@ -115,7 +115,7 @@ function profileImageUpload(pageUserId, principalId) {
 			type: "put",
 			url: `/api/user/${principalId}/profileImageUrl`,
 			data: formData,
-			contentType: false, // 필수 : x-www-form-urlencoded로 파싱되는 것을 방지
+			contentType: false, // 필수 : x-www-form-urlencoded(기본값)로 파싱되는 것을 방지
 			processData: false,  // 필수: contentType을 false로 줬을 때 QueryString 자동 설정됨. 해제
 			enctype: "multipart/form-data",
 			dataType: "json"
