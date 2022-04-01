@@ -1,6 +1,7 @@
 package com.example.photogram.domain.image;
 
 import com.example.photogram.domain.User;
+import com.example.photogram.domain.comment.Comment;
 import com.example.photogram.domain.likes.Likes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,13 @@ public class Image {
 
     @Transient//영속성 추가x
     private boolean likeState;
-    //댓글
+
+    //댓글 무한참조 방지
+    //순서대로
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> comments;
 
     @Transient
     private int likeCount;

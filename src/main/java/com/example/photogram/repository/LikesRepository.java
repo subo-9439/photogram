@@ -4,7 +4,6 @@ import com.example.photogram.domain.likes.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
 public interface LikesRepository extends JpaRepository<Likes,Long> {
 
     @Modifying
@@ -12,7 +11,7 @@ public interface LikesRepository extends JpaRepository<Likes,Long> {
     int mLikes(Long imageId,Long principalId);
 
     @Modifying
-    @Query(value="DLELTE FROM likes WHERE image_id = :imageId AND user_id = :principalId", nativeQuery = true)
+    @Query(value="DELETE FROM likes WHERE image_id = :imageId AND user_id = :principalId", nativeQuery = true)
     int mUnLikes(Long imageId,Long principalId);
 
 }
