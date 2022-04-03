@@ -32,6 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("mysql:mysql-connector-java")
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.6.1'
 
 	implementation group: 'org.qlrm', name: 'qlrm', version: '3.0.1'
 }

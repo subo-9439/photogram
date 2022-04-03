@@ -56,18 +56,10 @@ public class UserApiController  {
             BindingResult bindingResult,// 꼭 @Valid다음 파라미터에 적어놔야함
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        if(bindingResult.hasErrors()){
-            Map<String,String> errMap = new HashMap<>();
-
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errMap.put(error.getField(),error.getDefaultMessage());
-            }
-            throw new CustomValidationApiException("유효성검사 실패함",errMap);
-        }else {
+        //aop처리
             User userEntity = userService.userUpdate(id,userUpdateDto.toEntity());
             //세션정보 업데이트
             principalDetails.setUser(userEntity);
             return new CMRespDto<User>(1,"회원수정완료", userEntity);
-        }
     }
 }

@@ -29,14 +29,7 @@ public class CommentApiController {
     public ResponseEntity<?> commentSave(@Valid @RequestBody CommentDto commentDto,
                                          BindingResult bindingResult,
                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        if(bindingResult.hasErrors()){
-            Map<String,String> errMap = new HashMap<>();
-
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errMap.put(error.getField(),error.getDefaultMessage());
-            }
-            throw new CustomValidationApiException("유효성검사 실패함",errMap);
-        }
+        //Aop처리를 해줬음
         Comment comment = commentService.commentWrite(commentDto.getContent(), commentDto.getImageId(), principalDetails.getUser().getId());//content,imageid,userid
         return new ResponseEntity<>(new CMRespDto<>(1,"댓글쓰기 성공",comment), HttpStatus.CREATED);
     }
