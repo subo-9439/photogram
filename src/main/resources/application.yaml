@@ -8,7 +8,7 @@ spring:
     jdbc-url: jdbc:mysql://localhost:3303/photogram?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: '@tnqh258'
+    password:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
